@@ -1,0 +1,121 @@
+general outline of everything
+
+
+
+each person during combat will have a certain max health, current health, atk, dfc and rst stat
+    dfc = defence, rst = resistance
+players will have an additional stat of potions, lvl, weapon and armor
+    they will also have a poison stat (+ possibly disease) stat which is default to 0 at the start of each combat
+monsters will have a list of spells and a mana stat
+
+
+each fighter will take turns performing their actions
+the actions that can be performed by a player are to attack, defend, and use a potion
+    the player can also check an enemy's stats but it won't count as an action
+the actions that can be perfomed by a monster are to attack, defend and use a spell
+
+
+the player always goes first
+    note: a turn doesn't mean a full cycle between opponent and ally, meaning that a turn just the player/monster's opportunity to do an action, and when they finish it, it will now be the next person's turn
+    e.g. for a battle between player vs 2 monsters, first turn is player's turn, second turn is monster 1's turn, third turn is monster 2's turn, fourth turn is back to player's turn, etc.
+
+
+when a battle begins, the player gets to do an action
+once they have completed it, then the enemy will respond in a way depending on what the player did
+note: monster actions are random, but some actions can be more probable than others
+    if the player tried to attack, then the monster will be more likely to defend
+    if the player tried to defend, then the monster will be less likely to defend
+    if the player tried to use a potion, then the monster's actions's probabilities can vary depending on what potion is used.
+        if it's a type of potion that would deal direct damage to them the following turn then it will be more likely to defend
+        otherwise, it'll just do the opposite
+
+
+if one wishes to attack, it will only be executed once the corresponding enemy's turn is done
+if one wishes to defend or use a potion/spell, it will be executed right after the their turn ends,
+
+
+when one tries to attack, it means that they are trying to deal damage to an opponent equivalent to the attack of the one attacking (deal damage to = reduce health of)
+if the one being attacked has more dfc than atk of the one attacking, then no damage will be dealt
+otherwise, the damage dealt will be the atk of the one attacking minus the dfc of the one being attacked, all of which is reduced by the rst stat of the one being attacked
+    essentially, rst means the percentage of damage that wouldn't be dealt, so the percentage of damage that would be dealt is 100% - attacked.rst% of it
+    damage dealt = (attacker.atk - attacked.dfc)*((100-attacked.rst)/100)
+
+
+the player is able to see how much damage will be dealt to an opponent if he tries to attack
+e.g. if a player has 5 atk and the opponent has 20% rst and 0 dfc, then the player can see it will deal 4 damage
+    if the theoretical damage would be a decimal, such as 3.8, then it will be grounded, meaning 3.8 would be reduced to 3
+
+
+potions and spells
+    these are essentially buffs/debuffs that can be used by the player or the monsters
+        the player can buy potions through the shop in the town and can use them at no cost(except for their only action)
+        the monsters
+        some monsters have different sets of spells and require mana to use it, some can be used once while others are unlimited
+
+types of potions:
+
+    blood vial
+        heal the player by an amount but not beyond their max_health
+    potion of swelling
+        increase player's atk by an amount
+    potion of ironskin
+        increase player's dfc and rst by an amount
+    adrenaline
+        allows the player to do two more actions during their current turn
+    
+    
+        + wrath potion
+            doubles the player atk but halves the player dfc and rst
+        + divinity potion
+            quadruples/triples the player atk but they will die in one or two turns
+
+types of spells:
+    poison
+        applies an amount of poison to the player, which deals that amount of damage every time the player ends their turn. every time it deals damage, the poison stat is reduced by 1
+            essentially, if an enemy applies 4 poison on the player, then when the player ends their turn, they will take 4 damage, and then 3 damage, and so once
+    blindness
+        the player now has a chance of missing his target when attacking and is also unable to see enemy intent for a number of turns
+    bleed
+        deals damage to the player regardless of dfc or rst
+    heal
+        heal themselves/ally by an amount
+    pray (no cost)
+        gain an amount of mana
+    
+    
+        + disease (once)
+            same as poison but instead it will increase its stat by 1 every turn of the player
+                instead of going from 4 damage to 3 damage, it would increase to 5, then 6, and so on
+
+
+the tower
+
+this will contain 10 floors with different sets of enemies, with each consecutive floor having more difficult enemies
+in different floors, there can be a different number of enemies
+but once the player beats the top floor, then the game is over and the player wins
+if the player dies during a combat, then they will lose all of their gold
+
+the player's lvl is increased when the player beats a floor that wasn't beaten before
+the player would then have a higher base_atk and base_rst
+
+rewards
+    1: weapon  (tutorial)       
+    2: armor                    
+    3: potion                   blood vial
+    4: weapon                   
+    5: armor                    
+    6: potion                   swelling & ironskin
+    7: weapon                   
+    8: armor                    
+    9: potion                   adrenaline       
+
+enemies
+    1: goblin
+    2: 
+    3: witch (spell: poison)
+    4: goblin * 3
+    5: 
+    6: sorcerer & minion
+    7: 
+    8: yeti
+    9: knight & healer
